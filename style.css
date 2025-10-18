@@ -79,4 +79,82 @@ button:hover {
 .doctor-card p {
   margin: 0.3rem 0;
   color: #333;
+}#medicationCalendar {
+  background: #f5f8fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 30px;
+}
+
+#calendarControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#calendar {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+#calendar th, #calendar td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+#calendar td {
+  height: 80px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+#calendar td.medDay {
+  background-color: #d1e7dd;
+  border-radius: 6px;
+}
+
+#addMedication input, #addMedication button {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#addMedication button {
+  background-color: #0d6efd;
+  color: white;
+  cursor: pointer;
+}
+
+#addMedication button:hover {
+  background-color: #0b5ed7;
+}
+
+#todayMeds li {
+  margin: 10px 0;
+  padding: 8px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#todayMeds li button {
+  background: #198754;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#todayMeds li button.taken {
+  background: #6c757d;
 }
