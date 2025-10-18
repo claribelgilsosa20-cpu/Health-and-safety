@@ -1,11 +1,11 @@
-// Initialize Map
+// --- Initialize Map ---
 const map = L.map('map').setView([18.5, -69.9], 8); // Dominican Republic example
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Real-time location and hospitals
+// Real-time location and nearby hospitals
 if (navigator.geolocation) {
   navigator.geolocation.watchPosition(
     (position) => {
@@ -34,36 +34,43 @@ if (navigator.geolocation) {
   alert("Geolocation is not supported by this browser.");
 }
 
-// Simulación de signos vitales
+// --- Vital Signs Elements ---
 const bpEl = document.getElementById("bp");
 const hrEl = document.getElementById("hr");
 const stressEl = document.getElementById("stress");
+
 const bpStatus = document.getElementById("bpStatus");
+const hrStatus = document.getElementById("hrStatus");
 const stressStatus = document.getElementById("stressStatus");
 
+// --- Vital Signs Variables ---
 let systolic = 120;
 let diastolic = 80;
+let heartRate = 75;
 let stress = 3;
 
+// --- Update Vital Signs Every 5s ---
 function updateVitals() {
-  systolic = Math.floor(Math.random() * 40) + 90;
-  diastolic = Math.floor(Math.random() * 30) + 60;
-  stress = Math.floor(Math.random() * 10) + 1;
+  systolic = Math.floor(Math.random() * 40) + 90;      // 90-130
+  diastolic = Math.floor(Math.random() * 30) + 60;     // 60-90
+  heartRate = Math.floor(Math.random() * 40) + 60;     // 60-100
+  stress = Math.floor(Math.random() * 10) + 1;         // 1-10
 
   bpEl.textContent = `${systolic} / ${diastolic}`;
-  hrEl.textContent = Math.floor(Math.random() * 40) + 60;
+  hrEl.textContent = heartRate;
   stressEl.textContent = stress;
 
-  // Reset status
+  // Clear previous status
   bpStatus.textContent = "";
+  hrStatus.textContent = "";
   stressStatus.textContent = "";
 }
 
 setInterval(updateVitals, 5000);
 
-// Botones para chequear signos
+// --- Vital Signs Buttons ---
 document.getElementById("checkLow").addEventListener("click", () => {
-  if(systolic < 100 || diastolic < 60){
+  if (systolic < 100 || diastolic < 60) {
     bpStatus.textContent = "⚠️ Low pressure detected!";
   } else {
     bpStatus.textContent = "✅ All good!";
@@ -71,52 +78,37 @@ document.getElementById("checkLow").addEventListener("click", () => {
 });
 
 document.getElementById("checkHigh").addEventListener("click", () => {
-  if(systolic > 140 || diastolic > 90){
+  if (systolic > 140 || diastolic > 90) {
     bpStatus.textContent = "⚠️ High pressure detected!";
   } else {
     bpStatus.textContent = "✅ All good!";
   }
 });
 
+document.getElementById("checkHR").addEventListener("click", () => {
+  if (heartRate < 60 || heartRate > 100) {
+    hrStatus.textContent = "⚠️ Abnormal heart rate!";
+  } else {
+    hrStatus.textContent = "✅ All good!";
+  }
+});
+
 document.getElementById("checkStress").addEventListener("click", () => {
-  if(stress > 7){
+  if (stress > 7) {
     stressStatus.textContent = "⚠️ High stress detected!";
   } else {
     stressStatus.textContent = "✅ All good!";
   }
 });
 
-  healthySection.innerHTML = `
-    <h2>🥗 Healthy Habits</h2>
-    <div>
-      <h3>Recommended Foods</h3>
-      <p>${foodAdvice || "Balanced diet recommended."}</p>
-    </div>
-    <div>
-      <h3>Stress Relief Exercises</h3>
-      <p>${exerciseAdvice || "Keep a relaxed daily routine."}</p>
-    </div>
-    <div>
-      <h3>Hydration Reminder</h3>
-      <p>Press the button every time you drink water to keep track of hydration.</p>
-      <button id="hydrateBtn">I Drank Water 💧</button>
-      <p id="hydrationStatus">Not yet completed</p>
-    </div>
-  `;
+// --- Hydration Button ---
+const hydrateBtn = document.getElementById("hydrateBtn");
+const hydrationStatus = document.getElementById("hydrationStatus");
+hydrateBtn.addEventListener("click", () => {
+  hydrationStatus.textContent = "✅ Water intake completed!";
+});
 
-  // Emergency Alerts
-  if (alertMsg) alert(alertMsg);
-
-  // Reassign hydration button listener
-  const hydrateBtn = document.getElementById("hydrateBtn");
-  const hydrationStatus = document.getElementById("hydrationStatus");
-  hydrateBtn.addEventListener("click", () => {
-    hydrationStatus.textContent = "✅ Water intake completed!";
-  });
-}
-setInterval(updateVitals, 5000);
-
-// Emergency Button
+// --- Emergency Button ---
 const alarm = document.getElementById("alarm");
 document.getElementById("emergencyBtn").addEventListener("click", () => {
   alarm.play();
