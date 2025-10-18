@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health & Safety 🏥</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 </head>
 <body>
   <header>
     <h1>🏥 Health & Safety</h1>
-    <p>Your health and safety are our top priority — real-time monitoring, emergency alerts, and guidance.</p>
+    <p>Your health and safety are our top priority — monitor vital signs, track hospitals, and follow healthy habits.</p>
   </header>
 
   <main>
-    <!-- Map Section -->
-    <section id="mapSection">
-      <h2>📍 Nearby Hospitals</h2>
-      <div id="map"></div>
-      <p>Track your location and find nearby hospitals in real-time.</p>
+    <!-- How it Works -->
+    <section id="howItWorks">
+      <h2>🛠 How it Works</h2>
+      <p>Use this web app to monitor your vital signs, find nearby hospitals on the map in real-time, and follow health tips to improve your well-being.</p>
+      <p>Zoom in/out on the map and click hospital markers for details. Emergency contacts are always just a click away.</p>
     </section>
 
-    <!-- Vital Signs Section -->
+    <!-- Interactive Map Guide -->
+    <section id="mapSection">
+      <h2>📍 Interactive Map Guide</h2>
+      <div id="map"></div>
+      <p>Locate nearby hospitals in real-time. Use the zoom controls to navigate the map.</p>
+    </section>
+
+    <!-- Vital Signs -->
     <section id="vitals">
       <h2>❤️ Vital Signs</h2>
       <ul>
-        <li>Blood Pressure: <span id="bp">-- / --</span> mmHg
-          <p id="bpInfo">Causes: High BP → headache, heart risk; Low BP → dizziness, fatigue</p>
-        </li>
-        <li>Heart Rate: <span id="hr">--</span> bpm
-          <p id="hrInfo">Causes: Too high → anxiety, heart stress; Too low → fatigue, fainting</p>
-        </li>
-        <li>Stress Level: <span id="stress">--</span>
-          <p id="stressInfo">Causes: Work pressure, lack of sleep, personal issues</p>
-        </li>
+        <li>Blood Pressure: <span id="bp">-- / --</span> mmHg</li>
+        <li>Heart Rate: <span id="hr">--</span> bpm</li>
+        <li>Stress Level: <span id="stress">--</span></li>
       </ul>
     </section>
 
-    <!-- First Aid Section -->
-    <section id="firstAid">
-      <h2>🩹 First Aid Information</h2>
-      <p>Learn how to respond to high blood pressure, low blood pressure, elevated heart rate, and stress symptoms:</p>
-      <ul>
-        <li>High BP: Stay calm, sit, hydrate, consult doctor</li>
-        <li>Low BP: Lie down, elevate legs, drink fluids</li>
-        <li>High Heart Rate: Relax, breathe deeply, check for medical issues</li>
-        <li>Stress: Deep breathing, meditation, rest, consult professional if needed</li>
-      </ul>
+    <!-- Healthy Habits -->
+    <section id="healthyHabits">
+      <h2>🥗 Healthy Habits</h2>
+      <div>
+        <h3>Recommended Foods</h3>
+        <p>Low blood pressure: eat bananas, spinach, oats, eggs.</p>
+        <p>High blood pressure: eat berries, beetroot, fish rich in omega-3.</p>
+      </div>
+      <div>
+        <h3>Stress Relief Exercises</h3>
+        <p>Deep breathing, short walks, yoga, meditation.</p>
+      </div>
+      <div>
+        <h3>Hydration Reminder</h3>
+        <p>Press the button every time you drink water to keep track of hydration.</p>
+        <button id="hydrateBtn">I Drank Water 💧</button>
+        <p id="hydrationStatus">Not yet completed</p>
+      </div>
     </section>
 
     <!-- Emergency Section -->
@@ -67,6 +76,7 @@
       <p>Ask our AI chatbot for health guidance, first aid instructions, or safety tips.</p>
       <iframe src="https://claribelgilsosa23-your-safe-taxi.hf.space" frameborder="0" width="850" height="450"></iframe>
     </section>
+
   </main>
 
   <footer>
