@@ -34,41 +34,57 @@ if (navigator.geolocation) {
   alert("Geolocation is not supported by this browser.");
 }
 
-// Vital Signs Simulation & Alerts
+// Simulación de signos vitales
 const bpEl = document.getElementById("bp");
 const hrEl = document.getElementById("hr");
 const stressEl = document.getElementById("stress");
-const healthySection = document.getElementById("healthyHabits");
+const bpStatus = document.getElementById("bpStatus");
+const stressStatus = document.getElementById("stressStatus");
+
+let systolic = 120;
+let diastolic = 80;
+let stress = 3;
 
 function updateVitals() {
-  const systolic = Math.floor(Math.random() * 40) + 90;
-  const diastolic = Math.floor(Math.random() * 30) + 60;
-  const heartRate = Math.floor(Math.random() * 40) + 60;
-  const stress = Math.floor(Math.random() * 10) + 1;
+  systolic = Math.floor(Math.random() * 40) + 90;
+  diastolic = Math.floor(Math.random() * 30) + 60;
+  stress = Math.floor(Math.random() * 10) + 1;
 
   bpEl.textContent = `${systolic} / ${diastolic}`;
-  hrEl.textContent = heartRate;
+  hrEl.textContent = Math.floor(Math.random() * 40) + 60;
   stressEl.textContent = stress;
 
-  // Dynamic Recommendations
-  let foodAdvice = "";
-  let exerciseAdvice = "";
-  let alertMsg = "";
+  // Reset status
+  bpStatus.textContent = "";
+  stressStatus.textContent = "";
+}
 
-  // Blood Pressure
-  if (systolic < 100 || diastolic < 60) {
-    foodAdvice += "Eat bananas, spinach, oats, eggs. ";
-    alertMsg += "⚠️ Low blood pressure detected! ";
-  } else if (systolic > 140 || diastolic > 90) {
-    foodAdvice += "Eat berries, beetroot, fish rich in omega-3. ";
-    alertMsg += "⚠️ High blood pressure detected! ";
-  }
+setInterval(updateVitals, 5000);
 
-  // Stress
-  if (stress > 7) {
-    exerciseAdvice += "Do deep breathing, short walks, yoga, or meditation. ";
-    alertMsg += "⚠️ High stress detected! ";
+// Botones para chequear signos
+document.getElementById("checkLow").addEventListener("click", () => {
+  if(systolic < 100 || diastolic < 60){
+    bpStatus.textContent = "⚠️ Low pressure detected!";
+  } else {
+    bpStatus.textContent = "✅ All good!";
   }
+});
+
+document.getElementById("checkHigh").addEventListener("click", () => {
+  if(systolic > 140 || diastolic > 90){
+    bpStatus.textContent = "⚠️ High pressure detected!";
+  } else {
+    bpStatus.textContent = "✅ All good!";
+  }
+});
+
+document.getElementById("checkStress").addEventListener("click", () => {
+  if(stress > 7){
+    stressStatus.textContent = "⚠️ High stress detected!";
+  } else {
+    stressStatus.textContent = "✅ All good!";
+  }
+});
 
   healthySection.innerHTML = `
     <h2>🥗 Healthy Habits</h2>
