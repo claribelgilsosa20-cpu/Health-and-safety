@@ -211,4 +211,18 @@ if("Notification" in window) {
       }
     });
   }, 60000);
+}// --- Medication Notifications ---
+if("Notification" in window){
+  Notification.requestPermission();
+  setInterval(()=>{
+    const now = new Date();
+    const nowMinutes = now.getHours()*60 + now.getMinutes();
+    medications.forEach(m=>{
+      const [medHours, medMins] = m.time.split(":").map(Number);
+      const medMinutes = medHours*60 + medMins;
+      if(nowMinutes === medMinutes){
+        new Notification(`💊 Time to take ${m.name} (${m.dose})`);
+      }
+    });
+  }, 60000);
 }
