@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health & Safety 🏥</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <header>
+    <h1>🏥 Health & Safety</h1>
+    <p>Your health and safety are our top priority — real-time monitoring, emergency alerts, and guidance.</p>
+  </header>
+
+  <main>
+    <!-- Map Section -->
+    <section id="mapSection">
+      <h2>📍 Nearby Hospitals</h2>
+      <div id="map"></div>
+      <p>Track your location and find nearby hospitals in real-time.</p>
+    </section>
+
+    <!-- Vital Signs Section -->
+    <section id="vitals">
+      <h2>❤️ Vital Signs</h2>
+      <ul>
+        <li>Blood Pressure: <span id="bp">-- / --</span> mmHg
+          <p id="bpInfo">Causes: High BP → headache, heart risk; Low BP → dizziness, fatigue</p>
+        </li>
+        <li>Heart Rate: <span id="hr">--</span> bpm
+          <p id="hrInfo">Causes: Too high → anxiety, heart stress; Too low → fatigue, fainting</p>
+        </li>
+        <li>Stress Level: <span id="stress">--</span>
+          <p id="stressInfo">Causes: Work pressure, lack of sleep, personal issues</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- First Aid Section -->
+    <section id="firstAid">
+      <h2>🩹 First Aid Information</h2>
+      <p>Learn how to respond to high blood pressure, low blood pressure, elevated heart rate, and stress symptoms:</p>
+      <ul>
+        <li>High BP: Stay calm, sit, hydrate, consult doctor</li>
+        <li>Low BP: Lie down, elevate legs, drink fluids</li>
+        <li>High Heart Rate: Relax, breathe deeply, check for medical issues</li>
+        <li>Stress: Deep breathing, meditation, rest, consult professional if needed</li>
+      </ul>
+    </section>
+
+    <!-- Emergency Section -->
+    <section id="emergencySection">
+      <h2>🚨 Emergency</h2>
+      <p>If you feel unsafe or experience critical health symptoms, press the button below to alert authorities and emergency contacts.</p>
+      <button id="emergencyBtn">Activate Emergency Alert</button>
+      <audio id="alarm" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+      <ul>
+        <li>Dr. John Smith: <a href="tel:+18091234567">📞 Call</a></li>
+        <li>Dr. Maria Lopez: <a href="tel:+18099876543">📞 Call</a></li>
+      </ul>
+    </section>
+
+    <!-- AI Chatbot Section -->
+    <section id="chatbot">
+      <h2>🤖 AI Health Assistant</h2>
+      <p>Ask our AI chatbot for health guidance, first aid instructions, or safety tips.</p>
+      <iframe src="https://claribelgilsosa23-your-safe-taxi.hf.space" frameborder="0" width="850" height="450"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Health & Safety — Your well-being is our priority. Created by Claribel Gil Sosa.</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
