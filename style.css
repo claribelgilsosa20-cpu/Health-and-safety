@@ -50,4 +50,28 @@ button:hover {
 
 ul li {
   margin: 0.5rem 0;
+}#doctors ul {
+  list-style: none;
+  padding: 0;
+}
+
+#doctors li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#doctors img {
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  margin-right: 15px;
+}
+
+.doctor-info a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.doctor-info a:hover {
+  text-decoration: underline;
 }
