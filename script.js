@@ -113,4 +113,102 @@ const alarm = document.getElementById("alarm");
 document.getElementById("emergencyBtn").addEventListener("click", () => {
   alarm.play();
   alert("🚨 Emergency alert activated! Authorities have been notified.");
+});// Calendar setup
+let currentDate = new Date();
+const monthYearEl = document.getElementById("monthYear");
+const calendarBody = document.querySelector("#calendar tbody");
+let medications = JSON.parse(localStorage.getItem("medications")) || [];
+
+// Render calendar
+function renderCalendar() {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  monthYearEl.textContent = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  
+  calendarBody.innerHTML = "";
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  let date = 1;
+  for(let i=0; i<6; i++) {
+    const row = document.createElement("tr");
+    for(let j=0; j<7; j++) {
+      const cell = document.createElement("td");
+      if(i === 0 && j < firstDay) {
+        cell.textContent = "";
+      } else if(date > daysInMonth) {
+        break;
+      } else {
+        cell.textContent = date;
+        const dayMedications = medications.filter(m => new Date(m.date).getDate() === date && new Date(m.date).getMonth() === month && new Date(m.date).getFullYear() === year);
+        if(dayMedications.length > 0) {
+          cell.classList.add("medDay");
+        }
+        cell.addEventListener("click", () => alert(`Medications for ${date}/${month+1}/${year}: ${dayMedications.map(m=>m.name).join(", ") || "None"}`));
+        date++;
+      }
+      row.appendChild(cell);
+    }
+    calendarBody.appendChild(row);
+  }
+}
+
+// Navigation buttons
+document.getElementById("prevMonth").addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()-1); renderCalendar(); });
+document.getElementById("nextMonth").addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()+1); renderCalendar(); });
+
+renderCalendar();
+
+// Add medication
+document.getElementById("medForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("medName").value;
+  const time = document.getElementById("medTime").value;
+  const dose = document.getElementById("medDose").value;
+  const notes = document.getElementById("medNotes").value;
+  const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+  
+  const med = {name, time, dose, notes, date};
+  medications.push(med);
+  localStorage.setItem("medications", JSON.stringify(medications));
+  updateTodayMeds();
+  renderCalendar();
+  e.target.reset();
 });
+
+// Display today's medications
+function updateTodayMeds() {
+  const today = new Date();
+  const todayMedsEl = document.getElementById("todayMeds");
+  todayMedsEl.innerHTML = "";
+  const todayMeds = medications.filter(m => new Date(m.date).toDateString() === today.toDateString());
+  todayMeds.forEach((m, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${m.name} - ${m.dose} at ${m.time} (${m.notes})`;
+    const btn = document.createElement("button");
+    btn.textContent = "Taken";
+    btn.addEventListener("click", () => {
+      btn.classList.add("taken");
+      btn.textContent = "✅ Taken";
+    });
+    li.appendChild(btn);
+    todayMedsEl.appendChild(li);
+  });
+}
+
+updateTodayMeds();
+
+// Notifications
+if("Notification" in window) {
+  Notification.requestPermission();
+  setInterval(()=>{
+    const now = new Date();
+    const nowTime = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
+    medications.forEach(m=>{
+      const medTime = m.time;
+      if(nowTime === medTime){
+        new Notification(`💊 Time to take ${m.name} (${m.dose})`);
+      }
+    });
+  }, 60000);
+}
